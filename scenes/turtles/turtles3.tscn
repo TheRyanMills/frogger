@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://d2my6e6xrt6hx"]
+
+[ext_resource type="Script" uid="uid://c2ui22pgffwks" path="res://scripts/Turtles.cs" id="1_188ya"]
+[ext_resource type="PackedScene" uid="uid://c1316dcighp57" path="res://scenes/turtles/turtle.tscn" id="2_q8mjv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uus21"]
+size = Vector2(192, 48)
+
+[node name="Turtles3" type="CharacterBody2D" unique_id=168700664]
+script = ExtResource("1_188ya")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=716089439]
+position = Vector2(96, -32)
+shape = SubResource("RectangleShape2D_uus21")
+
+[node name="Turtle1" parent="." unique_id=778177944 instance=ExtResource("2_q8mjv")]
+
+[node name="Turtle2" parent="." unique_id=1362531784 instance=ExtResource("2_q8mjv")]
+position = Vector2(64, 0)
+
+[node name="Turtle3" parent="." unique_id=1715386550 instance=ExtResource("2_q8mjv")]
+position = Vector2(128, 0)

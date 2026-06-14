@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://c66uui8c8vxpw"]
+
+[ext_resource type="Script" uid="uid://bb2c1ecjc2p1n" path="res://scripts/LilyPad.cs" id="1_310bw"]
+[ext_resource type="Texture2D" uid="uid://6epcw1vrh778" path="res://assets/sprites/Lily_Pad.png" id="2_dk670"]
+[ext_resource type="Texture2D" uid="uid://cwuin4ob54rhf" path="res://assets/sprites/Frog_Front.png" id="3_310bw"]
+[ext_resource type="AudioStream" uid="uid://brfxl4wsy4y4g" path="res://assets/sounds/lily-splash.mp3" id="4_xlou6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cbcj5"]
+size = Vector2(16, 6)
+
+[node name="LilyPad" type="StaticBody2D" unique_id=1704655131]
+script = ExtResource("1_310bw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2026493617]
+position = Vector2(24, 0)
+shape = SubResource("RectangleShape2D_cbcj5")
+
+[node name="LilyPad" type="Sprite2D" parent="." unique_id=1203760932]
+texture_filter = 1
+position = Vector2(24, 24)
+texture = ExtResource("2_dk670")
+
+[node name="Frog" type="Sprite2D" parent="." unique_id=1365909809]
+visible = false
+texture_filter = 1
+position = Vector2(24, 23)
+texture = ExtResource("3_310bw")
+
+[node name="LilySplash" type="AudioStreamPlayer2D" parent="." unique_id=1190839051]
+stream = ExtResource("4_xlou6")

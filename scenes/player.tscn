@@ -1,0 +1,153 @@
+[gd_scene format=3 uid="uid://cib4np2xwgo8i"]
+
+[ext_resource type="Script" uid="uid://yqvv0cwob7xb" path="res://scripts/Player.cs" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://cwuin4ob54rhf" path="res://assets/sprites/Frog_Front.png" id="2_g2els"]
+[ext_resource type="AudioStream" uid="uid://8ki0s635tawd" path="res://assets/sounds/frog-jump.mp3" id="3_qhqgy"]
+[ext_resource type="AudioStream" uid="uid://cxrkt4aicikbk" path="res://assets/sounds/fallen.mp3" id="4_dqkch"]
+[ext_resource type="AudioStream" uid="uid://8ovch2asx56s" path="res://assets/sounds/squish.mp3" id="5_qlg0r"]
+[ext_resource type="AudioStream" uid="uid://qswyujkey6ui" path="res://assets/sounds/fuse.mp3" id="6_fjrip"]
+[ext_resource type="AudioStream" uid="uid://dgfakbebowe7y" path="res://assets/sounds/explosion.mp3" id="6_tuyoq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u8vuu"]
+size = Vector2(48, 48)
+
+[sub_resource type="Animation" id="Animation_3vyb7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_g2els"]
+resource_name = "hop"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.075, 0.15),
+"transitions": PackedFloat32Array(1, 0.5, 2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -8), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qhqgy"]
+_data = {
+&"RESET": SubResource("Animation_3vyb7"),
+&"hop": SubResource("Animation_g2els")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g2els"]
+lifetime_randomness = 0.8
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(24, 24, 1)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.75
+emission_ring_cone_angle = 90.0
+angle_min = 1.0728835e-05
+angle_max = 1.0728835e-05
+direction = Vector3(0, -1, 0)
+spread = 25.0
+initial_velocity_min = 150.0
+initial_velocity_max = 500.0
+gravity = Vector3(0, 800, 0)
+damping_min = 100.00001
+damping_max = 100.00001
+scale_min = 2.0
+scale_max = 2.0
+hue_variation_min = -2.2351742e-08
+hue_variation_max = -2.2351742e-08
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qhqgy"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 8.0
+angle_min = 1.0728835e-05
+angle_max = 1.0728835e-05
+inherit_velocity_ratio = 1.0
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 250.0
+gravity = Vector3(0, 98, 0)
+
+[node name="Player" type="CharacterBody2D" unique_id=1054212084]
+y_sort_enabled = true
+script = ExtResource("1_3vyb7")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1344409486]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1827014972]
+shape = SubResource("RectangleShape2D_u8vuu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=106214007]
+texture_filter = 1
+texture = ExtResource("2_g2els")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1615883415]
+libraries/ = SubResource("AnimationLibrary_qhqgy")
+
+[node name="SplashParticles" type="GPUParticles2D" parent="." unique_id=1739367416]
+emitting = false
+amount = 50
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.8
+process_material = SubResource("ParticleProcessMaterial_g2els")
+
+[node name="ExplosionTrailParticles" type="GPUParticles2D" parent="." unique_id=1470217771]
+emitting = false
+amount = 50
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+trail_enabled = true
+trail_lifetime = 0.1
+trail_sections = 4
+trail_section_subdivisions = 2
+process_material = SubResource("ParticleProcessMaterial_qhqgy")
+
+[node name="ExplosionPointParticles" type="GPUParticles2D" parent="." unique_id=27893500]
+emitting = false
+amount = 50
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+trail_lifetime = 0.1
+trail_sections = 4
+trail_section_subdivisions = 2
+process_material = SubResource("ParticleProcessMaterial_qhqgy")
+
+[node name="FrogJump" type="AudioStreamPlayer2D" parent="." unique_id=1599955714]
+stream = ExtResource("3_qhqgy")
+
+[node name="Fallen" type="AudioStreamPlayer2D" parent="." unique_id=542527878]
+stream = ExtResource("4_dqkch")
+
+[node name="Squish" type="AudioStreamPlayer2D" parent="." unique_id=596600647]
+stream = ExtResource("5_qlg0r")
+
+[node name="Fuse" type="AudioStreamPlayer2D" parent="." unique_id=63027472]
+stream = ExtResource("6_fjrip")
+
+[node name="Explosion" type="AudioStreamPlayer2D" parent="." unique_id=1518395517]
+stream = ExtResource("6_tuyoq")
+
+[connection signal="body_entered" from="Area2D" to="." method="OnArea2DBodyEntered"]
+[connection signal="body_exited" from="Area2D" to="." method="OnArea2DBodyExited"]

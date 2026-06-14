@@ -1,0 +1,323 @@
+[gd_scene format=4 uid="uid://dexy4o266q2qo"]
+
+[ext_resource type="Script" uid="uid://d1jpok8itubk2" path="res://scripts/Game.cs" id="1_yqjtg"]
+[ext_resource type="FontFile" uid="uid://cojxdnt2vn7jb" path="res://assets/SuperChiby-BL62V.ttf" id="2_0tnpc"]
+[ext_resource type="Texture2D" uid="uid://bx7k2rchw66tr" path="res://assets/sprites/Sidewalk_Square.png" id="2_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://bhmoi7s415pe2" path="res://assets/sprites/Bush.png" id="2_u5sy4"]
+[ext_resource type="Texture2D" uid="uid://b3g7a3mprfcn4" path="res://assets/sprites/Broken_White_Line.png" id="3_lbhrr"]
+[ext_resource type="Texture2D" uid="uid://cf43iojxyiopt" path="res://assets/sprites/Water-Sheet.png" id="4_iywne"]
+[ext_resource type="PackedScene" uid="uid://c66uui8c8vxpw" path="res://scenes/lillyPad.tscn" id="6_p57ef"]
+[ext_resource type="AudioStream" uid="uid://dcjd31kucv0mk" path="res://assets/sounds/clear.mp3" id="9_0tnpc"]
+[ext_resource type="Texture2D" uid="uid://d2afqxoxns16m" path="res://assets/sprites/Life.png" id="9_vtaks"]
+[ext_resource type="AudioStream" uid="uid://duwckqhdm2cm5" path="res://assets/sounds/happy-ending.mp3" id="10_vtaks"]
+[ext_resource type="AudioStream" uid="uid://bahgmshfai0ty" path="res://assets/sounds/traffic.mp3" id="11_kvpfn"]
+[ext_resource type="Script" uid="uid://5amu3ohb0xhe" path="res://scripts/Ambiance.cs" id="12_dinhu"]
+[ext_resource type="AudioStream" uid="uid://wbmsq207x6xe" path="res://assets/sounds/river.mp3" id="13_kvuet"]
+
+[sub_resource type="Animation" id="Animation_gee14"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(295.5, 511.99338)]
+}
+
+[sub_resource type="Animation" id="Animation_0tnpc"]
+resource_name = "wobble"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector2(295.5, 416), Vector2(295.5, 512)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vtaks"]
+_data = {
+&"RESET": SubResource("Animation_gee14"),
+&"wobble": SubResource("Animation_0tnpc")
+}
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p57ef"]
+texture = ExtResource("4_iywne")
+texture_region_size = Vector2i(64, 64)
+0:0/animation_speed = 6.0
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/animation_frame_2/duration = 1.0
+0:0/animation_frame_3/duration = 1.0
+0:0/animation_frame_4/duration = 1.0
+0:0/animation_frame_5/duration = 1.0
+0:0/animation_frame_6/duration = 1.0
+0:0/animation_frame_7/duration = 1.0
+0:0/animation_frame_8/duration = 1.0
+0:0/animation_frame_9/duration = 1.0
+0:0/animation_frame_10/duration = 1.0
+0:0/animation_frame_11/duration = 1.0
+0:0/animation_frame_12/duration = 1.0
+0:0/animation_frame_13/duration = 1.0
+0:0/animation_frame_14/duration = 1.0
+0:0/animation_frame_15/duration = 1.0
+0:0/animation_frame_16/duration = 1.0
+0:0/animation_frame_17/duration = 1.0
+0:0/animation_frame_18/duration = 1.0
+0:0/animation_frame_19/duration = 1.0
+0:0/animation_frame_20/duration = 1.0
+0:0/animation_frame_21/duration = 1.0
+0:0/animation_frame_22/duration = 1.0
+0:0/animation_frame_23/duration = 1.0
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_u5sy4"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_p57ef")
+
+[node name="Game" type="Node2D" unique_id=85981860]
+script = ExtResource("1_yqjtg")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1353886760]
+
+[node name="ScoreLabel" type="Label" parent="HUD" unique_id=1888918470]
+offset_left = 32.0
+offset_top = 24.0
+offset_right = 170.0
+offset_bottom = 77.0
+theme_override_fonts/font = ExtResource("2_0tnpc")
+theme_override_font_sizes/font_size = 40
+text = "Score: 0"
+
+[node name="LevelLabel" type="Label" parent="HUD" unique_id=1590153554]
+offset_left = 752.0
+offset_top = 24.0
+offset_right = 864.0
+offset_bottom = 77.0
+theme_override_fonts/font = ExtResource("2_0tnpc")
+theme_override_font_sizes/font_size = 40
+text = "Level 1"
+horizontal_alignment = 2
+
+[node name="Life1" type="Sprite2D" parent="HUD" unique_id=1106842573]
+texture_filter = 1
+position = Vector2(32, 992)
+scale = Vector2(2, 2)
+texture = ExtResource("9_vtaks")
+
+[node name="Life2" type="Sprite2D" parent="HUD" unique_id=1314036227]
+texture_filter = 1
+position = Vector2(64, 992)
+scale = Vector2(2, 2)
+texture = ExtResource("9_vtaks")
+
+[node name="Life3" type="Sprite2D" parent="HUD" unique_id=706920985]
+texture_filter = 1
+position = Vector2(96, 992)
+scale = Vector2(2, 2)
+texture = ExtResource("9_vtaks")
+
+[node name="AttemptTimerLabel" type="Label" parent="HUD" unique_id=1082547330]
+offset_left = 800.0
+offset_top = 968.0
+offset_right = 876.0
+offset_bottom = 1021.0
+theme_override_fonts/font = ExtResource("2_0tnpc")
+theme_override_font_sizes/font_size = 40
+text = "Time"
+
+[node name="AttemptTimerBackground" type="ColorRect" parent="HUD" unique_id=1529819777]
+offset_left = 784.0
+offset_top = 976.0
+offset_right = 848.0
+offset_bottom = 1008.0
+color = Color(0.2901961, 0.32941177, 0.38431373, 1)
+
+[node name="AttemptTimerBar" type="ColorRect" parent="HUD" unique_id=456183375]
+offset_left = 784.0
+offset_top = 976.0
+offset_right = 848.0
+offset_bottom = 1008.0
+color = Color(0.34901962, 0.75686276, 0.20784314, 1)
+
+[node name="AttemptTimer" type="Timer" parent="HUD" unique_id=2112723683]
+wait_time = 50.0
+one_shot = true
+
+[node name="ClearLabel" type="Label" parent="HUD" unique_id=327458604]
+visible = false
+z_index = 10
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -152.5
+offset_top = 511.99338
+offset_right = 152.5
+offset_bottom = 643.0055
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("2_0tnpc")
+theme_override_font_sizes/font_size = 100
+text = "CLEAR!"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HUD/ClearLabel" unique_id=941272519]
+libraries/ = SubResource("AnimationLibrary_vtaks")
+
+[node name="ClearSound" type="AudioStreamPlayer2D" parent="HUD" unique_id=968809037]
+stream = ExtResource("9_0tnpc")
+
+[node name="GameOverLabel" type="Label" parent="HUD" unique_id=160303959]
+visible = false
+z_index = 10
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -224.5
+offset_top = 448.0
+offset_right = 224.5
+offset_bottom = 579.0121
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("2_0tnpc")
+theme_override_font_sizes/font_size = 100
+text = "Game Over"
+
+[node name="GameOverSound" type="AudioStreamPlayer2D" parent="HUD" unique_id=133860801]
+stream = ExtResource("10_vtaks")
+
+[node name="Background" type="ColorRect" parent="." unique_id=732931842]
+z_index = -10
+offset_right = 896.0
+offset_bottom = 1024.0
+color = Color(0, 0, 0, 1)
+
+[node name="Bushes" type="Sprite2D" parent="Background" unique_id=1721038779]
+z_index = 1
+texture_repeat = 2
+position = Vector2(448, 144)
+texture = ExtResource("2_u5sy4")
+region_enabled = true
+region_rect = Rect2(0, 0, 960, 96)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Background" unique_id=982753674]
+texture_filter = 1
+texture_repeat = 2
+tile_map_data = PackedByteArray("AAAAAAcAAAAAAAAAAAABAAcAAAAAAAAAAAACAAcAAAAAAAAAAAADAAcAAAAAAAAAAAAEAAcAAAAAAAAAAAAFAAcAAAAAAAAAAAAGAAcAAAAAAAAAAAAHAAcAAAAAAAAAAAAIAAcAAAAAAAAAAAAJAAcAAAAAAAAAAAAKAAcAAAAAAAAAAAALAAcAAAAAAAAAAAAMAAcAAAAAAAAAAAANAAcAAAAAAAAAAAANAAYAAAAAAAAAAAANAAUAAAAAAAAAAAANAAQAAAAAAAAAAAANAAMAAAAAAAAAAAAMAAMAAAAAAAAAAAALAAMAAAAAAAAAAAAKAAMAAAAAAAAAAAAJAAMAAAAAAAAAAAAIAAMAAAAAAAAAAAAHAAMAAAAAAAAAAAAGAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAADAAMAAAAAAAAAAAACAAMAAAAAAAAAAAABAAMAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAABAAYAAAAAAAAAAAABAAUAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAACAAUAAAAAAAAAAAACAAYAAAAAAAAAAAADAAYAAAAAAAAAAAADAAUAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAYAAAAAAAAAAAAFAAYAAAAAAAAAAAAFAAUAAAAAAAAAAAAFAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAAAAAAGAAYAAAAAAAAAAAAHAAYAAAAAAAAAAAAHAAUAAAAAAAAAAAAHAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAAAAAAIAAYAAAAAAAAAAAAJAAYAAAAAAAAAAAAJAAUAAAAAAAAAAAAJAAQAAAAAAAAAAAAKAAQAAAAAAAAAAAAKAAUAAAAAAAAAAAAKAAYAAAAAAAAAAAALAAYAAAAAAAAAAAALAAUAAAAAAAAAAAALAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAAMAAUAAAAAAAAAAAAMAAYAAAAAAAAAAAANAAIAAAAAAAAAAAAMAAIAAAAAAAAAAAALAAIAAAAAAAAAAAAKAAIAAAAAAAAAAAAJAAIAAAAAAAAAAAAIAAIAAAAAAAAAAAAHAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAFAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAADAAIAAAAAAAAAAAACAAIAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAEAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAAFAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAHAAEAAAAAAAAAAAAIAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAAKAAEAAAAAAAAAAAALAAEAAAAAAAAAAAAMAAEAAAAAAAAAAAANAAEAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_u5sy4")
+
+[node name="TopSidewalk" type="Sprite2D" parent="Background" unique_id=870005453]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(448, 544)
+texture = ExtResource("2_lnu2h")
+region_enabled = true
+region_rect = Rect2(0, 0, 896, 64)
+
+[node name="Road" type="ColorRect" parent="Background" unique_id=58298013]
+layout_mode = 0
+offset_top = 576.0
+offset_right = 896.0
+offset_bottom = 896.0
+color = Color(0.2901961, 0.32941177, 0.38431373, 1)
+
+[node name="LaneBorder1" type="Sprite2D" parent="Background" unique_id=772107413]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(448, 640)
+texture = ExtResource("3_lbhrr")
+region_enabled = true
+region_rect = Rect2(0, 0, 896, 4)
+
+[node name="LaneBorder2" type="Sprite2D" parent="Background" unique_id=1688066483]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(448, 704)
+texture = ExtResource("3_lbhrr")
+region_enabled = true
+region_rect = Rect2(0, 0, 896, 4)
+
+[node name="LaneBorder3" type="Sprite2D" parent="Background" unique_id=1021162458]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(448, 768)
+texture = ExtResource("3_lbhrr")
+region_enabled = true
+region_rect = Rect2(0, 0, 896, 4)
+
+[node name="LaneBorder4" type="Sprite2D" parent="Background" unique_id=235137176]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(448, 832)
+texture = ExtResource("3_lbhrr")
+region_enabled = true
+region_rect = Rect2(0, 0, 896, 4)
+
+[node name="BottomSidewalk" type="Sprite2D" parent="Background" unique_id=1538470567]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(448, 928)
+texture = ExtResource("2_lnu2h")
+region_enabled = true
+region_rect = Rect2(0, 0, 896, 64)
+
+[node name="ColorRect" type="ColorRect" parent="Background" unique_id=1029446676]
+layout_mode = 0
+offset_right = 896.0
+offset_bottom = 104.0
+color = Color(0, 0, 0, 1)
+
+[node name="LilyPad1" parent="." unique_id=1704655131 instance=ExtResource("6_p57ef")]
+position = Vector2(40, 136)
+
+[node name="LilyPad2" parent="." unique_id=1999048798 instance=ExtResource("6_p57ef")]
+position = Vector2(232, 136)
+flipH = true
+
+[node name="LilyPad3" parent="." unique_id=570342724 instance=ExtResource("6_p57ef")]
+position = Vector2(424, 136)
+flipH = true
+flipV = true
+
+[node name="LilyPad4" parent="." unique_id=1310279995 instance=ExtResource("6_p57ef")]
+position = Vector2(616, 136)
+
+[node name="LilyPad5" parent="." unique_id=1484595935 instance=ExtResource("6_p57ef")]
+position = Vector2(808, 136)
+flipV = true
+
+[node name="TrafficAmbiance" type="AudioStreamPlayer2D" parent="." unique_id=1651540940]
+position = Vector2(448, 736)
+stream = ExtResource("11_kvpfn")
+volume_db = -70.0
+autoplay = true
+script = ExtResource("12_dinhu")
+tileHeight = 4
+
+[node name="RiverAmbiance" type="AudioStreamPlayer2D" parent="." unique_id=1788007716]
+position = Vector2(448, 352)
+stream = ExtResource("13_kvuet")
+volume_db = -70.0
+autoplay = true
+script = ExtResource("12_dinhu")
+tileHeight = 4
+
+[node name="AmbienceUpdateTimer" type="Timer" parent="." unique_id=1412819266]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="HUD/AttemptTimer" to="." method="OnTimerTimeout"]

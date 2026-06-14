@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bmms87wunuas1"]
+
+[ext_resource type="Script" uid="uid://bxmt52dorbg2q" path="res://scripts/Logs.cs" id="1_cqnbj"]
+[ext_resource type="Texture2D" uid="uid://bcspogxajya7r" path="res://assets/sprites/Log4.png" id="2_cqnbj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jj3y8"]
+size = Vector2(256, 56)
+
+[node name="Log4" type="CharacterBody2D" unique_id=450355502]
+script = ExtResource("1_cqnbj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=93898137]
+z_index = -1
+position = Vector2(128, -32)
+shape = SubResource("RectangleShape2D_jj3y8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=890645440]
+z_index = -1
+texture_filter = 1
+position = Vector2(128, -32)
+texture = ExtResource("2_cqnbj")

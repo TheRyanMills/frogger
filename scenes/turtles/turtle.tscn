@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c1316dcighp57"]
+
+[ext_resource type="SpriteFrames" uid="uid://bl1iex26x17dh" path="res://assets/sprites/Turtle.aseprite" id="1_nhtml"]
+
+[node name="Turtle" type="Node2D" unique_id=778177944]
+z_index = -1
+y_sort_enabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=592319617]
+texture_filter = 1
+position = Vector2(32, -32)
+scale = Vector2(-1, 1)
+sprite_frames = ExtResource("1_nhtml")
+autoplay = "default"
+frame_progress = 0.23603655
